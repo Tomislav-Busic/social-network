@@ -1,3 +1,12 @@
+//Zabrana vračanja na početnu stranicu korisniku koji ima cookie
+let session = new Session();                //Kreiramo objekat
+session = session.getSession();             //Uzimamo cookie
+
+if(session !== ""){                         //Ako nije prazan cookie / ako postoji cookie                
+    window.location.href = "acount.html";   //Onda ćemo ga preusmjeriti na acount.html
+}
+
+
 //Otvaranje forme za registraciju korisnika
 document.querySelector('#open-register').addEventListener('click', () => {
     document.querySelector('.modal').style.display = 'block';
@@ -9,6 +18,8 @@ document.querySelector('#closeModal').addEventListener('click', () => {
 })
 
 
+
+//Vrijednosti za ispravnu validaciju
 let config = {
     'user_name': {
         required: true,
@@ -38,15 +49,40 @@ let config = {
     }
 }
 
+//Proslijeđivanje podataka iz forme u Validate.je(class)
 let validator = new Validator(config, '#registrationForm');
 
+//Uzimanje podataka iz forme za registraciju korisnika i slanje na server
 document.querySelector('#registrationForm').addEventListener('submit', e => {
     //Da se nebi reloadala stranica
     e.preventDefault();
 
     if(validator.validationPassed()){
-        alert('sve ok')
+        
+        let user = new User();
+
+        //Uzimanje vrijednosti iz registracije i slanje sa metodom create(); => iz klase User()
+        user.username = document.querySelector('#user_name').value;
+        user.email = document.querySelector('#email').value;
+        user.password = document.querySelector('#password').value;
+        user.create();
+
     } else {
         alert('The fields are not filled in correctly!')
     }
+});
+
+
+//Uzimanje podataka iz login forme i slanje u User() klasu preko login metode da se usporedi sa podatcima na serveru i dozvoli pristup
+document.querySelector('#loginForm').addEventListener('submit', e => {
+    e.preventDefault();
+
+    let email = document.querySelector('#login_email').value;
+    let password = document.querySelector('#login_pasword').value;
+
+    let user = new User();
+    user.email = email;    
+    user.password = password;
+    user.loginUser();
+
 })
