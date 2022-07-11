@@ -95,7 +95,7 @@ form ul li{
 .modal{
     display: none;
     background-color: rgb(0, 206, 255);
-    box-shadow:rgba(0, 0, 0, 0.5) 0 0 1000px 1000px;
+    box-shadow:rgba(0, 0, 0, 0.3) 0 0 1000px 1000px;
     max-width: 650px;
     margin: auto;
     padding: 50px;
@@ -118,4 +118,61 @@ form ul li{
     top: 15px;
     right: 15px; 
     cursor: pointer;
+}
+
+
+/*account.html*/
+.inner-container {
+    border: solid 1px rgb(0, 206, 255);
+    padding: 15px;
+}
+
+.inner-container.left-side{
+    text-align: center;
+}
+
+.inner-container.left-side img{
+    width: 70%;
+    border-radius: 50%;
+    border: 5px solid white;
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.inner-container.left-side button{
+    padding: 2px 10px;
+    border-radius: 5px;
+    background-color: rgb(0, 206, 255);
+    color: white;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    border-left: 2px solid rgb(0, 206, 255);
+    border-right: 2px solid rgb(0, 206, 255);
+}
+
+.inner-container.right-side form{
+    display: flex;
+    height: 100px;
+}
+
+.inner-container.right-side form textarea{
+    width: 85%;
+    border: 0;
+    padding: 10px;
+    resize: none;                           /* Da se ne može širiti van okvira*/
+    outline-color:rgb(0, 206, 255);
+}
+
+.inner-container.right-side form button{
+    width: 15%;
+    background-color:rgb(0, 206, 255);
+    border-left:rgb(0, 206, 255);
+    border-right: rgb(0, 206, 255);
+    color: white;
+    font-weight: bold;
+    border-top: 5px solid white;
+    border-bottom: 5px solid white;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }

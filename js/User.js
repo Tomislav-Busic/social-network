@@ -32,19 +32,30 @@ class User{
         })
     }
 
+    async get(user_id) {                             //Asinhrona funkcija, da nam se nebi učitali prazni podatci ako se funkcija nije jop izvršila
+        let api_url = this.api_url + '/users/' + user_id;
+
+        let response = await fetch(api_url);
+        let user = await response.json();
+
+        return user;
+    }
+
     //Metoda za logiranje
     loginUser() {
         fetch(this.api_url + '/users')
         .then(response => response.json())
         .then(data => {
+            
             data.forEach(db_user => {
 
                 let login_successful = 0;
                 if(db_user.email === this.email && db_user.password === this.password){
                     let session = new Session();
                     session.user_id = db_user.id;
-                    session.startSession;
+                    session.startSession();
                     login_successful = 1;
+                    window.location.href = 'acount.html';
                 } 
 
                 if(login_successful === 0){
