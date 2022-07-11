@@ -28,7 +28,7 @@ class User{
             session.user_id = data.id;              //Uzimanje id-a koji je vraćen => I čuvanje u sesiji
             session.startSession();                 //Startanje sesije  
 
-            window.location.href = 'acount.html';
+            window.location.href = 'account.html';
         })
     }
 
@@ -55,7 +55,7 @@ class User{
                     session.user_id = db_user.id;
                     session.startSession();
                     login_successful = 1;
-                    window.location.href = 'acount.html';
+                    window.location.href = 'account.html';
                 } 
 
                 if(login_successful === 0){
