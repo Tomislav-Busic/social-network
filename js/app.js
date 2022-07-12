@@ -3,7 +3,7 @@ let session = new Session();                //Kreiramo objekat
 session = session.getSession();             //Uzimamo cookie
 
 if(session !== ""){                         //Ako nije prazan cookie / ako postoji cookie                
-    window.location.href = "account.html";   //Onda ćemo ga preusmjeriti na account.html
+    window.location.href = "account.html";   //Onda ćemo ga preusmjeriti na acount.html
 }
 
 

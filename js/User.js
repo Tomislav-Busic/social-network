@@ -32,6 +32,7 @@ class User{
         })
     }
 
+    //Asinhrona metoda za dohvaćanje kprisnika
     async get(user_id) {                             //Asinhrona funkcija, da nam se nebi učitali prazni podatci ako se funkcija nije jop izvršila
         let api_url = this.api_url + '/users/' + user_id;
 
@@ -39,6 +40,30 @@ class User{
         let user = await response.json();
 
         return user;
+    }
+
+    edit(){
+        let  data = {
+            username: this.username,
+            email: this.email
+        }
+
+        data = JSON.stringify(data);
+
+        let session = new Session();
+        session_id = session.getSession();
+
+        fetch(this.api_url + '/users/' + session_id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: data
+        })
+        .then(response => response.json())
+        .then(data => {
+            window.location.href = 'account.html';
+        })
     }
 
     //Metoda za logiranje
@@ -62,6 +87,23 @@ class User{
                     document.querySelector('#loginForm h2').innerText = 'Incorrect email or password! Please try again.';
                 }
             })
+        })
+    }
+
+    //Metoda za brisanje profila
+    delete(){
+        let session = new Session();
+        session_id = session.getSession();
+
+        fetch(this.api_url + '/users/' + session_id, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            let session = new Session();
+            session.destroySession();
+
+            window.location.href = "/";
         })
     }
 }
