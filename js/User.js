@@ -42,6 +42,7 @@ class User{
         return user;
     }
 
+    //Metoda za mijenjanje podataka o korisniku
     edit(){
         let  data = {
             username: this.username,

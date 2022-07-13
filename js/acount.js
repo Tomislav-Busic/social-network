@@ -59,4 +59,41 @@ document.querySelector('#deleteProfile').addEventListener('click', e => {
         user.delete();
     }
 
+});
+
+//Stavljanje objave / prosljeđivanje podataka u klasu Post()
+document.querySelector('#postForm').addEventListener('submit', e => {
+    e.preventDefault();
+
+    async function createPost() {                                   //Asinhrona funkcija iz razloga što se upravlja DOM elementima
+        let content = document.querySelector('#postContent').value;
+        document.querySelector('#postContent').value = '';          //Da se sadržaj odmah izbriše iz forme
+        let post = new Post();
+        post.post_content = content;
+        post = await post.create();
+
+        let current_user = new User();                              //Treba nam trenutni korisnik tj. username da bi smo znali tko je ispisao taj post
+        current_user = await current_user.get(session_id);          //Zatim ga uzimamo pomoću metode get() preko sessije
+
+        let postWrapper = document.querySelector('#allPostsWrapper');
+
+        postWrapper.innerHTML = `<div class="post" data-post_id="${post.post_id}">
+                                    <div class="post-content">${post.content}</div>  
+                                    
+                                    <div class="post-comments">
+                                        <form>
+                                            <input placeholder="Write comment..." type="text">
+                                            <button onclick="commentPostSubmit(event)">Comment</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                
+                               
+                                `
+    }
+    createPost();
 })
+
+const commentPostSubmit = event => {
+
+}

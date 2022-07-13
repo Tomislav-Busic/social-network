@@ -181,3 +181,33 @@ form ul li{
 #deleteProfile{
     border: 2px solid crimson;
 }
+
+#allPostsWrapper .post{
+    background-color: #f4e2e2;
+    padding: 15px;
+    margin-top: 15px;
+    color: #313131;
+}
+
+#allPostsWrapper .post .post-content{
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgb(0, 206, 255);
+    font-size: 20px;
+}
+
+#allPostsWrapper .post .post-comments form{
+    height: 30px;
+    margin-top: 15px;
+}
+
+#allPostsWrapper .post .post-comments form input{
+    border: none;
+    width: 85%;
+    padding: 0 10px;
+}
+
+#allPostsWrapper .post .post-comments form button{
+    border-top: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+}
