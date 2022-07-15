@@ -83,14 +83,14 @@ document.querySelector('#postForm').addEventListener('submit', e => {
             deletePost = '<button class="remove-btn" onclick="removeMyPost(this)">Remove</button>'
         }
 
-        postWrapper.innerHTML = `<div class="post" data-post_id="${post.post_id}">
+        postWrapper.innerHTML += `<div class="post" data-post_id="${post.id}">
                                     <div class="post-content">${post.content}</div>  
 
                                     <div class="post-actions">
                                         <p><b>Author: </b>${current_user.username}</p>
                                         <div>
-                                            <button onclick="likePost(this)" class="likePostJS like-btn"><span>${post.likes}</span> likes</button>
-                                            <button onclick="commentPost(this) class="comment-btn">Comments</button>
+                                            <button onclick="likePost(this)"><span>${post.likes}</span> likes</button>
+                                            <button onclick="commentPost(this)">Comments</button>
                                             ${deletePost}
                                         </div>    
                                     </div>
@@ -102,6 +102,7 @@ document.querySelector('#postForm').addEventListener('submit', e => {
                                         </form>
                                     </div>
                                 </div>`
+                                
     }
     createPost();
 })
@@ -122,14 +123,14 @@ async function getPosts() {
                 deletePost = '<button class="remove-btn" onclick="removeMyPost(this)">Remove</button>'
             }
                                                                                    //Kopiramo kod jedino što moramo promjeniti je koji korisnik je objavio komentar user.username a ne current.username.. 
-            document.querySelector('#allPostsWrapper').innerHTML += `<div class="post" data-post_id="${post.post_id}">
+            document.querySelector('#allPostsWrapper').innerHTML += `<div class="post" data-post_id="${post.id}">
                                                                         <div class="post-content">${post.content}</div>  
 
                                                                         <div class="post-actions">
                                                                             <p><b>Author: </b>${user.username}</p>                                                                
                                                                             <div>
-                                                                                <button onclick="likePost(this)" class="likePostJS like-btn"><span>${post.likes}</span> likes</button>
-                                                                                <button onclick="commentPost(this) class="comment-btn">Comments</button>
+                                                                                <button onclick="likePost(this)"><span>${post.likes}</span> likes</button>
+                                                                                <button onclick="commentPost(this)">Comments</button>
                                                                                 ${deletePost}
                                                                             </div>    
                                                                         </div>
@@ -148,9 +149,27 @@ async function getPosts() {
 
 getPosts();
 
-//Funkcija za slanje komentara
+//Funkcija za ispis i slanje komentara u bazu podataka
 const commentPostSubmit = event => {
+    event.preventDefault();
 
+    let btn = event.target;
+    btn.setAttribute('disabled', 'true');
+
+    let main_el = btn.closest('.post');
+    let post_id = main_el.getAttribute('data-post_id');
+
+    let data_value = main_el.querySelector('input').value;
+
+    main_el.querySelector('input').value = '';
+
+    main_el.querySelector('.post-comments').innerHTML += `<div class="single-comment">${data_value}</div>`
+
+    let comment = new Comment();
+    comment.content = data_value;
+    comment.user_id = session_id;
+    comment.post_id = post_id;
+    comment.postComment();
 }
 
 //Funkcija za brisanje objave
@@ -163,7 +182,9 @@ const likePost = element => {
 
 }
 
-//Funkcija za komentare
-const commentPost = element => {
+//Funkcija za otvaranje inputa za komentare na svakoj objavi zasebno
+const commentPost = btn => {
+    let main_post = btn.closest('.post');
 
+    main_post.querySelector('.post-comments').style.display = 'block';
 }
