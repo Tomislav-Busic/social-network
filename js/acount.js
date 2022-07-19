@@ -107,7 +107,7 @@ document.querySelector('#postForm').addEventListener('submit', e => {
     createPost();
 })
 
-//Funkcija za učitavanje svih komentara(isto asinhrona iz razloga da nam ne baca grešku dok se ne povuku podatci iz baze)
+//Funkcija za učitavanje svih postova(isto asinhrona iz razloga da nam ne baca grešku dok se ne povuku podatci iz baze)
 async function getPosts() {
     let all_posts = new Post();
     all_posts = await all_posts.getAllPosts();
@@ -115,7 +115,18 @@ async function getPosts() {
     all_posts.forEach(post => {
         async function getPostUser(){
             let user = new User();
-            user = await user.get(post.user_id);                                   //Trebamo usera koji je postavio post
+            user = await user.get(post.user_id);                        //Trebamo usera koji je postavio post
+            
+            //Učitavanje komentara u postovima
+            let comments = new Comment();
+            comments = await comments.get(post.id);  
+            
+            let html_comments = '';                                     //Prazana varijabla koje će biti popunjena ako postoji komentar u postu                         
+            if(comments.length > 0){
+                comments.forEach(comment => {
+                    html_comments += `<div class="single-comment">${comment.content}</div>`;
+                })
+            }
             
             let deletePost = '';                                                    
 
@@ -140,6 +151,7 @@ async function getPosts() {
                                                                                 <input placeholder="Write comment..." type="text">
                                                                                 <button onclick="commentPostSubmit(event)">Comment</button>
                                                                             </form>
+                                                                            ${html_comments}
                                                                         </div>
                                                                     </div>`
         }
