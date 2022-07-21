@@ -186,7 +186,11 @@ const commentPostSubmit = event => {
 
 //Funkcija za brisanje objave
 const removeMyPost = element => {
+    let post_id = element.closest('.post').getAttribute('data-post_id');
+    element.closest('.post').remove();
 
+    let post = new Post();
+    post = post.delete(post_id);
 }
 
 //Funkcija za lajkove

@@ -30,9 +30,19 @@ class Post{
          return data;
     }
 
+    //Asinhrona metoda za dohvaćanje svih postova
     async getAllPosts(){
         let response = await fetch(this.api_url + '/posts');
         let data = await response.json();
         return data;
+    }
+
+    //Metoda za brisanje posta od strane kreatora istog
+    delete(post_id){
+        fetch(this.api_url + '/posts/' + post_id, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {alert('Post je obrisan')});
     }
 }
