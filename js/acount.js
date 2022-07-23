@@ -195,7 +195,15 @@ const removeMyPost = element => {
 
 //Funkcija za lajkove
 const likePost = element => {
+    let main_post_el = element.closest('.post');
+    let post_id = main_post_el.getAttribute('data-post_id');
+    let num_of_likes = parseInt(element.querySelector('span').innerText);
 
+    element.querySelector('span').innerText = num_of_likes + 1;
+    element.setAttribute('disabled', 'true');
+
+    let post = new Post();
+    post.like(post_id, num_of_likes + 1);
 }
 
 //Funkcija za otvaranje inputa za komentare na svakoj objavi zasebno
