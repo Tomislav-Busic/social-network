@@ -3,7 +3,7 @@ class User{
     username = '';
     email = '';
     password = '';
-    api_url = 'https://62caade81eaf3786ebaf1ba3.mockapi.io';
+    api_url = 'https://62ea716a3a5f1572e87bbe00.mockapi.io';
 
     //Kreiranje korisnika i slanje podataka pomoću metode 'POST' u bazu(mockapi)
     create() {

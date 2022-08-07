@@ -3,7 +3,7 @@ class Post{
     post_content = '';
     user_id = '';
     likes = '';
-    api_url = 'https://62caade81eaf3786ebaf1ba3.mockapi.io';
+    api_url = 'https://62ea716a3a5f1572e87bbe00.mockapi.io';
 
     async create(){
         let session = new Session();                 //Uzimamo trenutnu sesiju da vidimo koji je korisnik napravio post
